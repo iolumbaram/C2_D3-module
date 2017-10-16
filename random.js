@@ -16,8 +16,8 @@ var randomNumero = 0;
 
 var rn = require('random-number');
 var gen = rn.generator({
-  min:  -10
-, max:  100
+  min:  1
+, max:  10
 , integer: true
 })
 
