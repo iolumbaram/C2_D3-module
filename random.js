@@ -11,11 +11,8 @@ server.connection({ port: 3000 })
 
 var io = require('socket.io')(server.listener);
 var fs = require('fs');
-var gps = {
-             lat: null,
-             lng: null,
-};
-var randomNum;
+
+var randomNumero = 0;
 
 var rn = require('random-number');
 var gen = rn.generator({
@@ -24,27 +21,27 @@ var gen = rn.generator({
 , integer: true
 })
 
+console.log('1');
 setInterval(function(){
-    console.log('emitting ');
-    randomNum = gen();
-    console.log(randomNum);
-    }, 3000);
-
-
-// io.on('connection', function (socket) {
-//   socket.on('lamppost_dimmer', function (data) {
-//       socket.emit('ui_status', data);
-//   });
-// });
+    // console.log('emitting ');
+    randomNumero = gen();
+    // console.log(randomNum);
+    }, 1000);
 
 
 io.on('connection', function (socket) {
-    
-    socket.emit('randomNum', randomNum);
-    console.log('emitted')
+    setInterval(function(){
+        // console.log('emitting ');
+        randomNumero = gen();
+        // console.log(randomNum);
+        socket.emit('randomNUM', randomNumero);
+        
+    }, 1000);
+    console.log(randomNumero);
   });
 
 
+  console.log('2');
 // To surf webpage
 server.register(require('inert'), (err) => {
     if (err) {
@@ -56,7 +53,7 @@ server.route({
  path: '/{file*}',
  handler: {
   directory: {
-   path: '/home/hazel/LPC2'
+   path: '/home/hazel/test_folder/01_java'
   }
  }
 })
