@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="socket.io/socket.io.js"></script>
+</head>
+<style> /* set the CSS */
+		.chart div {
+			font: 10px sans-serif;
+			background-color: steelblue;
+			text-align: right;
+			padding: 3px;
+			margin: 1px;
+			color: white;
+		}
+	</style>
+
+<body>
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+    <div class="chart"></div>
+		<script>
+			var data=[12, 46];
+			var ranVal;
+        
+    	var socket = io.connect('http://127.0.0.1:3000');
+      socket.on('randomNUM', function(val) {
+					ranVal = JSON.parse(val);
+					data.push(ranVal);
+          console.log(data)
+					update();
+      });
+
+      function update(){
+				d3.select(".chart")
+					.selectAll("div")
+					.data(data)
+					.enter()
+					.append("div")
+					.style("width", function(d) { return d + "px"; })
+					.text(function(d) { return d; });
+      	}
+    </script>
+</body>
+</html>
